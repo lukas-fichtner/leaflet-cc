@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Unity-Life Map</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha256-LcmP8hlMTofQrGU6W2q3tUnDnDZ1QVraxfMkP060ekM=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="custome.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha256-kdEnCVOWosn3TNsGslxB8ffuKdrZoGQdIdPwh7W1CsE=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="map" class="map"></div>
+    <script>
+        mapLink = '<a href="https://unity-life.de">Unity-Life.de</a>';
+    var card = L.tileLayer('https://webstorage1.gaming-provider.com/Projekte/Unity-Life/static/leaflet/sat/{z}/{x}/{y}.png', {  
+        minZoom: 2, 
+        maxZoom: 6, 
+        attribution: '&copy; ' + mapLink, 
+        tms: true 
+        });
+        var map = L.map('map', { 
+        zoomAnimation: true,
+        layers: [card] 
+        }).setView([0, 0], 4);
+        var baseLayers = { 
+        "Karte": card 
+        };
+        L.control.layers(baseLayers).addTo(map);
+        var southWest = map.unproject([0, 16384], map.getMaxZoom());  
+        var northEast = map.unproject([16384, 0], map.getMaxZoom());  
+        map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+    </script>
+</body>
+</html>
