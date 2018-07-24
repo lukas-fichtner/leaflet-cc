@@ -12,18 +12,25 @@
     <div id="map" class="map"></div>
     <script>
         mapLink = '<a href="https://unity-life.de">Unity-Life.de</a>';
-    var card = L.tileLayer('https://webstorage1.gaming-provider.com/Projekte/Unity-Life/static/leaflet/sat/{z}/{x}/{y}.png', {  
+        var nongridmap = L.tileLayer('https://webstorage1.gaming-provider.com/Projekte/Unity-Life/static/leaflet/nongridsat/{z}/{x}/{y}.png', {  
         minZoom: 2, 
         maxZoom: 6, 
         attribution: '&copy; ' + mapLink, 
         tms: true 
         });
+        var gridmap = L.tileLayer('https://webstorage1.gaming-provider.com/Projekte/Unity-Life/static/leaflet/sat/{z}/{x}/{y}.png', {  
+        minZoom: 2, 
+        maxZoom: 6, 
+        attribution: '&copy; ' + mapLink, 
+        tms: true
+        });
         var map = L.map('map', { 
         zoomAnimation: true,
-        layers: [card] 
+        layers: [nongridmap, gridmap] 
         }).setView([0, 0], 4);
         var baseLayers = { 
-        "Karte": card 
+        "Karte (mit raster)": gridmap,
+        "Karte (ohne raster": nongridmap
         };
         L.control.layers(baseLayers).addTo(map);
         var southWest = map.unproject([0, 16384], map.getMaxZoom());  
